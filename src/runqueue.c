@@ -40,3 +40,17 @@ struct task_struct *rq_dequeue(struct rq *rq)
 
     return rev;
 }
+
+// dequeue (LIFO)
+struct task_struct *rq_dequeue_lifo(struct rq *rq)
+{
+    struct task_struct *rev;
+
+    if (rq->in == rq->out)
+        return NULL;
+
+    rq->in--;
+    rev = rq->r[rq->in & rq->mask];
+
+    return rev;
+}

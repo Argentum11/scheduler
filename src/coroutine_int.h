@@ -50,6 +50,8 @@ void rq_init(struct rq *rq);
 int rq_enqueue(struct rq *rq, struct task_struct *task);
 struct task_struct *rq_dequeue(struct rq *rq);
 
+struct task_struct *rq_dequeue_lifo(struct rq *rq);
+
 /* main data structure */
 
 #define MAX_CR_TABLE_SIZE 10

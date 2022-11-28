@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "../coroutine.h"
-
+// COROUTINE_DEFINE is what a task will do while executing
 COROUTINE_DEFINE(job)
 {
     VAR_DEFINE2(int, i, j);

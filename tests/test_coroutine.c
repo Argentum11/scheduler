@@ -34,7 +34,7 @@ int main(void)
     int crfd, tfd[10];                         // 宣告變數
     printf("1...defalt/2...FIFO/4...LIFO:  "); // 提示選擇
     int choice;                                // 選擇的變數
-    scanf("&d", &choice);                      // 輸入選擇
+    scanf("%d", &choice);                      // 輸入選擇
     int scheduler;                             // scheduler 的變數
     /*判斷選擇*/
     if (choice == 2 || choice == 4)

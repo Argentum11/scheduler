@@ -30,6 +30,7 @@ COROUTINE_DEFINE(job) // 定義 coroutine
 
 int main(void)
 {
+
     int crfd, tfd[10];                         // 宣告變數
     printf("1...defalt/2...FIFO/4...LIFO:  "); // 提示選擇
     int choice;                                // 選擇的變數

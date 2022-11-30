@@ -4,6 +4,7 @@
 #include <errno.h>
 #include <time.h>
 #include <sched.h>
+#include <stdio.h>
 
 #include "rbtree.h"
 #include "context.h"
@@ -180,17 +181,20 @@ void sched_init(struct cr *cr)
     switch (cr->flags)
     {
     case CR_DEFAULT:                                 // default
+        printf("default\n");
         RB_ROOT_INIT(cr->root);                      // 初始化 root (cnt=0 父黑 左右子null)
         cr->schedule = default_schedule;             // 使用 default 的排程法
         cr->pick_next_task = default_pick_next_task; // 抓取下一個task執行並把task從runqueue和rbtree中移除
         cr->put_prev_task = default_put_prev_task;   // 儲存計算好的sum_exec_runtime並把current job在runqueue新增並插入rbtree中以便之後resume
-
         return;
-    case CR_FIFO:                                 // fifo
+        
+    case CR_FIFO:     
+        printf("fifo\n");                         // fifo
         rq_init(&cr->rq);                         // runqueue 初始化
         cr->schedule = fifo_schedule;             // 使用 fifo 的排程法
         cr->pick_next_task = fifo_pick_next_task; // 把 task 從 runqueue 中移除
         cr->put_prev_task = fifo_put_prev_task;   //把 task 加入 runqueue
+        break;
 
     case CR_LIFO:
         printf("lifo\n");                         // lifo

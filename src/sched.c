@@ -4,6 +4,7 @@
 #include <errno.h>
 #include <time.h>
 #include <sched.h>
+#include <stdio.h>
 
 #include "rbtree.h"
 #include "context.h"
@@ -177,11 +178,11 @@ void sched_init(struct cr *cr)
         cr->schedule = fifo_schedule;
         cr->pick_next_task = fifo_pick_next_task;
         cr->put_prev_task = fifo_put_prev_task;
+    case CR_LIFO:
+        printf("lifo\n");
+        rq_init(&cr->rq);
+        cr->schedule = lifo_schedule;
+        cr->pick_next_task = lifo_pick_next_task;
+        cr->put_prev_task = lifo_put_prev_task;
     }
-case CR_LIFO:
-    printf("lifo\n");
-    rq_init(&cr->rq);
-    cr->schedule = lifo_schedule;
-    cr->pick_next_task = lifo_pick_next_task;
-    cr->put_prev_task = lifo_put_prev_task;
 }

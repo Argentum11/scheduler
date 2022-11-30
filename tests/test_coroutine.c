@@ -31,7 +31,7 @@ int main(void)
     int crfd, tfd[10];
     printf("1...defalt/2...FIFO/4...LIFO:  ");
     int choice;
-    scanf("&d", &choice);
+    scanf("%d", &choice);
     int scheduler;
     if (choice == 2 || choice == 4) {
         scheduler = choice;

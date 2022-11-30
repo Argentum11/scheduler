@@ -29,8 +29,17 @@ COROUTINE_DEFINE(job)
 int main(void)
 {
     int crfd, tfd[10];
-
-    crfd = coroutine_create(CR_DEFAULT);
+    printf("1...defalt/2...FIFO/4...LIFO:  ");
+    int choice;
+    scanf("&d", &choice);
+    int scheduler;
+    if (choice == 2 || choice == 4) {
+        scheduler = choice;
+    }
+    else {
+        scheduler = CR_DEFAULT;
+    }
+    crfd = coroutine_create(scheduler);
     if (crfd < 0)
         return crfd;
 

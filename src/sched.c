@@ -4,6 +4,7 @@
 #include <errno.h>
 #include <time.h>
 #include <sched.h>
+#include <stdio.h>
 
 #include "rbtree.h"
 #include "context.h"

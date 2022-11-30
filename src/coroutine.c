@@ -63,11 +63,34 @@ int coroutine_start(int crfd)
         return -EFAULT;
     cr = crt.table[crfd];
 
+    int finishedTask = 0;
+    //the array that records task finish sequence
+    int task[MAX_CR_TABLE_SIZE];
+
     do {
         cr->current = cr->pick_next_task(cr);
 
-        if (!cr->current)
+        //tasks are all done
+        if (!cr->current){
+            int lifo = 1;
+            for (int i = 0; i < MAX_CR_TABLE_SIZE; i++)
+            {
+                if (task[i] != MAX_CR_TABLE_SIZE - i)
+                {
+                    lifo = 0;
+                    break;
+                }
+            }
+            if (lifo)
+            {
+                printf("lifo succeed\n");
+            }
+            else
+            {
+                printf("lifo failed\n");
+            }
             goto done;
+        }
         status = cr->current->job(&(cr->current->context), cr->current->args);
 
         switch (status) {

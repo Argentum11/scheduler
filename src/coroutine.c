@@ -4,6 +4,7 @@
 #include <sys/types.h>
 #include <errno.h>
 #include <unistd.h>
+#include <stdio.h>
 
 #include "context.h"
 #include "coroutine.h"

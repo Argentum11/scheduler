@@ -93,7 +93,7 @@ int coroutine_start(int crfd)
             goto done;
         }
         status = cr->current->job(&(cr->current->context), cr->current->args);
-
+        int taskNum =*(int*)(cr->current->args);
         switch (status) {
         case CR_CLONE_EXIT:
             free(cr->current);
@@ -111,6 +111,8 @@ int coroutine_start(int crfd)
             cr->put_prev_task(cr, cr->current);
             break;
         case CR_EXIT:
+            finishedTask++;
+            task[taskNum]=finishedTask;
             free(cr->current);
             break;
         }

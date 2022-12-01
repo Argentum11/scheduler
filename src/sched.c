@@ -39,6 +39,18 @@ static inline int fifo_schedule(struct cr *cr, job_t func, void *args)
     return new_task->tfd; // 回傳新 task 的 tfd
 }
 
+/* 把 task 從 runqueue 中移除 */
+static inline struct task_struct *fifo_pick_next_task(struct cr *cr)
+{
+    return rq_dequeue(&cr->rq);
+}
+
+/* 把 task 從 runqueue 中移除 */
+static inline int fifo_put_prev_task(struct cr *cr, struct task_struct *prev)
+{
+    return rq_enqueue(&cr->rq, prev);
+}
+
 static inline int lifo_schedule(struct cr *cr, job_t func, void *args)
 {
     struct task_struct *new_task; // 宣告變數
@@ -63,18 +75,6 @@ static inline int lifo_schedule(struct cr *cr, job_t func, void *args)
     new_task->context.blocked = 1;    // 沒有呼叫 cr_to_proce 且為預設
 
     return new_task->tfd; // 回傳新 task 的 tfd
-}
-
-/* 把 task 從 runqueue 中移除 */
-static inline struct task_struct *fifo_pick_next_task(struct cr *cr)
-{
-    return rq_dequeue(&cr->rq);
-}
-
-/* 把 task 從 runqueue 中移除 */
-static inline int fifo_put_prev_task(struct cr *cr, struct task_struct *prev)
-{
-    return rq_enqueue(&cr->rq, prev);
 }
 
 /* 把 task 從 runqueue 中移除 */
